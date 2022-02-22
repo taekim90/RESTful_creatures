@@ -15,6 +15,9 @@ app.use(ejsLayouts)
 // this allows us to access form data via req.body
 app.use(express.urlencoded({extended: false}))
 // tells express how to handle incoming data also called payload data. it wlil parse it and it wil throw it into the object under a body property
+// it processes the form data and allows us to look inside the body property of that request object
+// req.body is what we can use to look at that data.
+// req.body for post. & req.query for get request
 
 // ROUTES
 // home route
@@ -60,6 +63,41 @@ app.post('/dinosaurs', (req, res) => {
     // then redirect back to the index route
     // res.redirect takes the url pattern that the get route that you want to run next
     res.redirect('/dinosaurs')
+    // the new added dino data is in the req.body
+    console.log(req.body)
+})
+
+
+// FOR PREHISTORIC CREATURES
+// home route
+app.get('/prehistoric_creatures', (req,res) => {
+    let prehistoric_creatures = fs.readFileSync('./prehistoric_creatures.json')
+    let creaturesData = JSON.parse(prehistoric_creatures)
+    res.render('prehistoric/index.ejs', {myCreatures: creaturesData})
+})
+app.get('/prehistoric_creatures/new', (req, res) => {
+    res.render('prehistoric/new.ejs')
+})
+app.get('/prehistoric_creatures/:idx', (req, res) => {
+    // read in the dinos from the db
+    let prehistoric_creatures = fs.readFileSync('./prehistoric_creatures.json')
+    let creaturesData = JSON.parse(prehistoric_creatures)
+    // extract the dino corresponding to the idx param
+    let creatureIndex = req.params.idx
+    let targetCreature = creaturesData[creatureIndex]
+    res.render('prehistoric/show.ejs', {creature: targetCreature})
+})
+app.post('/prehistoric_creatures', (req, res) => {
+    // read in our dino data from the json file
+    let prehistoric_creatures = fs.readFileSync('./prehistoric_creatures.json')
+    let creaturesData = JSON.parse(prehistoric_creatures)
+    // add/push the new dino to the dinoData array
+    creaturesData.push(req.body)
+    // save the dinosaurs to the json file
+    fs.writeFileSync('./prehistoric_creatures.json', JSON.stringify(creaturesData))
+    // then redirect back to the index route
+    // res.redirect takes the url pattern that the get route that you want to run next
+    res.redirect('/prehistoric_creatures')
     // the new added dino data is in the req.body
     console.log(req.body)
 })
