@@ -1,0 +1,17 @@
+<!-- action is the url where -->
+<!-- method is the http verb or where you want the app to go next once the form has been submited -->
+<form action="/dinosaurs" method="post">
+    <div>
+        <label for="dinosaurType">Type:</label>
+        <!-- the name="" is what becomes the key in a key-value pair -->
+        <input type="text" name="type" id="dinosaurType">
+    </div>
+
+    <div>
+        <label for="dinosaurName">Name:</label>
+        <input type="text" name="name" id="dinosaurName">
+    </div>
+
+    <button type="submit">Add a New Dino!</button>
+    <!-- or an input of type submit -->
+</form>
