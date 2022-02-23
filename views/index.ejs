@@ -1,12 +1,18 @@
 <form action="/dinosaurs" method="get">
     <label for="nameFilter">Filter by Name:</label>
     <!-- the for in the label and the id in the input need to be the same -->
-    <input type="text" name="nameFilter" id="nameFilter">
+    <input type="text" name="nameFilter" id="nameFilter">   
+    <!-- if the method is a "get" form, then the name from input will be what is displayed as the key in the key value pair.  -->
     <button type="'submit">Filter Results</button>
 </form>
 
 <ul>
-    <% myDinos.forEach(dino => { %>
-        <li> <%= dino.name %> is a <%= dino.type %> </li>
+    <% myDinos.forEach((dino, i) => { %>
+        <li> 
+            <%= dino.name %> is a <%= dino.type %> 
+            <form action="/dinosaurs/<%= i %>/?_method=DELETE" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
     <% }) %>
 </ul>
