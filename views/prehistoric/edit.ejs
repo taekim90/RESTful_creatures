@@ -1,0 +1,15 @@
+<form action="/prehistoric_creatures/<%=creatureId%>/?_method=PUT" method="POST">
+    <div>
+        <label for="creatureType">Type:</label>
+        <!-- the name="" is what becomes the key in a key-value pair -->
+        <input type="text" name="type" id="creatureType" value="<%=creature.type%>">
+    </div>
+
+    <div>
+        <label for="creatureURL">URL:</label>
+        <input type="text" name="img_url" id="creatureURL" value="<%=creature.img_url%>">
+    </div>
+
+    <button type="submit">Update This Creature!</button>
+    <!-- or an input of type submit -->
+</form>
